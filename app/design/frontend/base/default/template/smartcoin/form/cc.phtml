@@ -1,0 +1,90 @@
+<?php
+/**
+ * Smartcoin payment method model
+ *
+ * @category    Smartcoin
+ * @package     Smartcoin_Checkout
+ * @author      Arthur Granado <agranado@smartcoin.com.br>
+ * @copyright   Smartcoin (https://smartcoin.com.br)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+$_code=$this->getMethodCode();
+?>
+<ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none;">
+	<li>
+		<div id="smartcoin_api_key" class="hidden" style="display:none" data-apikey="<?=$this->api_key; ?>"></div>
+		<div class="clear"></div>
+
+		<!-- Bank Slip Form -->
+		<input type="radio" id="smartcoin_payment_method_bank_slip" name="smartcoin_payment_method" value="bank_slip" >
+		<label for="smartcoin_payment_method_bank_slip">Boleto Bancário</label></br>
+		<section id="smartcoin_bank_slip_section"  style="display: none;">
+		  <p class="form-row">
+		    Clique no botão abaixo para gerar o boleto.
+		  </p>
+		</section>
+
+		<!-- Credit Card Form -->
+		<input type="radio" id="smartcoin_payment_method_credit_card" name="smartcoin_payment_method" value="credit_card" checked> 
+		<label for="smartcoin_payment_method_credit_card">Cartão de Crédito</label></br>
+	  <li>
+	  	<label for="<?php echo $_code ?>_cc_number" class="required"><em>*</em><?php echo $this->__('Credit Card Number') ?></label>
+	  	<div class="input-box">
+        <input type="text" id="<?php echo $_code ?>_cc_number" title="<?php echo $this->__('Credit Card Number') ?>" class="input-text required-entry" autocomplete="off" data-smartcoin="number" value="" />
+      </div>
+	  </li>
+	  <li>
+	  	<label for="<?php echo $_code ?>_cc_name" class="required"><em>*</em><?php echo $this->__('Credit Card Name') ?></label>
+	  	<div class="input-box">
+        <input type="text" id="<?php echo $_code ?>_cc_name" title="<?php echo $this->__('Credit Card Name') ?>" class="input-text required-entry" data-smartcoin="name" value="" />
+      </div>
+	  </li>
+	  <li>
+      <label for="<?php echo $_code ?>_expiration" class="required"><em>*</em><?php echo $this->__('Expiration Date (month/year)') ?></label>
+      <div class="input-box">
+        <div class="v-fix">
+          <select id="<?php echo $_code ?>_exp_month" class="month" data-smartcoin="exp_month">
+            <?php foreach ($this->getCcMonths() as $k=>$v): ?>
+              <option value="<?php echo $k?$k:'' ?>"><?php echo $v ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+        <div class="v-fix">
+          <span>/</span>
+          <select id="<?php echo $_code ?>_exp_year" class="year"  data-smartcoin="exp_year">
+            <?php foreach ($this->getCcYears() as $k=>$v): ?>
+              <option value="<?php echo $k?$k:'' ?>"><?php echo $v ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+      </div>
+  	</li>
+  	<li>
+  		<label for="<?php echo $_code ?>_cc_cvc" class="required"><em>*</em><?php echo $this->__('Secure Code') ?></label>
+	  	<div class="input-box">
+        <input type="text" id="<?php echo $_code ?>_cc_cvc" title="<?php echo $this->__('Credit Card Secure Code') ?>" class="input-text required-entry" autocomplete="off" data-smartcoin="cvc" value="" />
+      </div>
+      <label for="<?php echo $_code ?>_cc_installment" class="required"><em>*</em><?php echo $this->__('Instalments') ?></label>
+      <div class="v-fix">
+          <select id="<?php echo $_code ?>_installment" name="payment[smartcoin_installment]" class="month" data-smartcoin="installment">
+            <?php foreach ($this->getCcInstallments() as $k=>$v): ?>
+              <option value="<?php echo $k?$k:'' ?>"><?php echo $v ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+  	</li>
+	</li>
+</ul>
+<script type="text/javascript">
+	var smartcoin_setting_credit_card_form = function() {
+		$j = jQuery.noConflict();
+	  setTimeout(function() {
+	    $j('input[data-smartcoin="number"]').payment('formatCardNumber');
+	    $j('input[data-smartcoin=cvc]').payment('formatCardCVC');
+	  }, 1000);
+	};
+
+	jQuery(document).ready(function($) {
+		smartcoin_setting_credit_card_form();
+	});
+</script>

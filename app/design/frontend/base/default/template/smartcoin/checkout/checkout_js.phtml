@@ -1,0 +1,77 @@
+<?php
+/**
+ * Smartcoin payment method model
+ *
+ * @category    Smartcoin
+ * @package     Smartcoin_Checkout
+ * @author      Arthur Granado <agranado@smartcoin.com.br>
+ * @copyright   Smartcoin (https://smartcoin.com.br)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+$customer=Mage::getSingleton('customer/session');
+$billingaddress = Mage::getModel('customer/address')->load($customer->getCustomer()->default_billing);
+$addressdata = $billingaddress ->getData();
+
+Mage::log('Shipment Address: ' . json_encode($addressdata));
+?>
+<script type="text/javascript">
+Payment.prototype._save = Payment.prototype.save;
+Payment.prototype.save = function() {
+    if (checkout.loadWaiting!=false) return;
+    var validator = new Validation(this.form);
+    if (this.validate() && validator.validate()) {
+        // if (this.currentMethod == 'smartcoin_checkout') {
+        //     var $installments = $(payment.currentMethod+'_installments');
+        //     if ($installments.selectedIndex > 0) {
+        //         $(payment.currentMethod+'_installment_description').value = $installments.options[$installments.selectedIndex].text;
+        //     } else {
+        //         $(payment.currentMethod+'_installment_description').value = '';
+        //     }
+        //     this.iugu_cc_data = {};
+        //     var fields = ['installments', 'installment_description', 'cc_type', 'cc_number', 'cc_owner', 'expiration', 'expiration_yr', 'cc_cid'];
+        //     fields.each(function(field){
+        //         this.iugu_cc_data[field] = $(this.currentMethod+'_'+field).value;
+        //     }.bind(this));
+        // } else {
+        //     this.iugu_cc_data = null; //clear data
+        // }
+        this._save();
+    }
+};
+
+Review.prototype._save = Review.prototype.save;
+Review.prototype.save = function() {
+  $j = jQuery.noConflict();
+  if (payment.currentMethod == 'smartcoin_smartcheckout') {
+    checkout.setLoadWaiting('review');
+    params = {
+      email: '<?php echo $customer->getCustomer()->getEmail(); ?>',
+      card: { 
+        number: $j('input[data-smartcoin="number"]').val().replace(/\s*/g, ""),
+        name: $j('input[data-smartcoin="name"]').val(),
+        exp_month: $j('input[data-smartcoin="exp_month"]').val(),
+        exp_year: $j('input[data-smartcoin="exp_year"]').val(),
+        cvc: $j('input[data-smartcoin="cvc"]').val(),
+        address_line_1: '<?php echo str_replace("\n",' ', $addressdata["street"]); ?>',
+        address_city: '<?php echo $addressdata["city"]; ?>',
+        address_state: '<?php echo $addressdata["region"]; ?>',
+        address_cep: '<?php echo $addressdata["postcode"]; ?>',
+        address_country: '<?php echo $addressdata["country_id"]; ?>',
+      }
+    };
+
+    SmartCoin.set_api_key(_smartcoin_api_key);
+    SmartCoin.create_customer(params, function(data){
+      checkout.setLoadWaiting(false);
+      if (data.id) {
+        $j('form#co-payment-form').append('<input type="hidden" id="smartcoin_smartcheckout_smartcoin_customer" name="payment[smartcoin_customer]" value="' + data.id + '" />');
+        this._save();
+      } else {
+        alert(JSON.stringify(data.errors));
+      }
+    }.bind(this));
+  } else {
+    this._save();
+  }
+};
+</script>

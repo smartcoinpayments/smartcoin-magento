@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Smartcoin_Smartcheckout>
+      <active>true</active>
+      <codePool>community</codePool>
+    </Smartcoin_Smartcheckout>
+  </modules>
+</config>

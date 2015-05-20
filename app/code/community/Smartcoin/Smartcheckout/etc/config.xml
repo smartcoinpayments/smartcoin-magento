@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Smartcoin payment
+ *
+ * @category	Smartcoin
+ * @package		Smartcoin_Smartcheckout
+ * @author		Arthur Granado <agranado@smartcoin.com.br>
+ * @copyright	Smartcoin (https://smartcoin.com.br)
+ * @license		http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+  <modules>
+    <Smartcoin_Smartcheckout>
+      <version>1.0.0</version>
+    </Smartcoin_Smartcheckout>
+  </modules>
+  <global>
+    <fieldsets>
+      <sales_convert_quote_payment>
+        <smartcoin_customer><to_order_payment>*</to_order_payment></smartcoin_customer>
+        <smartcoin_installment><to_order_payment>*</to_order_payment></smartcoin_installment>
+      </sales_convert_quote_payment>
+    </fieldsets>
+    <resources>
+      <smartcoin_smartcheckout_setup>
+        <setup>
+          <module>Smartcoin_Smartcheckout</module>
+          <class>Mage_Sales_Model_Resource_Setup</class>
+        </setup>
+        <connection>
+          <use>core_setup</use>
+        </connection>
+      </smartcoin_smartcheckout_setup>
+      <smartcoin_smartcheckout_write>
+        <connection>
+          <use>core_write</use>
+        </connection>
+      </smartcoin_smartcheckout_write>
+      <smartcoin_smartcheckout_read>
+        <connection>
+          <use>core_read</use>
+        </connection>
+      </smartcoin_smartcheckout_read>
+    </resources>
+    <models>
+      <smartcoin_smartcheckout>
+        <class>Smartcoin_Smartcheckout_Model</class>
+      </smartcoin_smartcheckout>
+    </models>
+    <helpers>
+      <smartcoin_smartcheckout>
+        <class>Smartcoin_Smartcheckout_Helper</class>
+      </smartcoin_smartcheckout>
+    </helpers>
+    <blocks>
+      <smartcoin_smartcheckout>
+        <class>Smartcoin_Smartcheckout_Block</class>
+      </smartcoin_smartcheckout>
+    </blocks>
+  </global>
+  <frontend>
+    <events> 
+      <core_block_abstract_to_html_after>
+        <observers>
+          <smartcoin_smartcheckout_addsmartcoinjs>
+            <type>singleton</type>
+            <class>smartcoin_smartcheckout/observer</class>
+            <method>addSmartcoinJavascriptBlock</method>
+          </smartcoin_smartcheckout_addsmartcoinjs>
+          <smartcoin_smartcheckout_addcheckoutjs>
+            <type>singleton</type>
+            <class>smartcoin_smartcheckout/observer</class>
+            <method>addCheckoutJavascriptBlock</method>
+          </smartcoin_smartcheckout_addcheckoutjs>
+        </observers>
+      </core_block_abstract_to_html_after>
+    </events>       
+  </frontend>
+  <default>
+    <payment>
+      <smartcoin_smartcheckout>
+      	<model>smartcoin_smartcheckout/cc</model>
+        <mode>test</mode>
+      	<api_key_test backend_model="adminhtml/system_config_backend_encrypted"/>
+        <api_secret_test backend_model="adminhtml/system_config_backend_encrypted"/>
+        <api_key_live backend_model="adminhtml/system_config_backend_encrypted"/>
+        <api_secret_live backend_model="adminhtml/system_config_backend_encrypted"/>
+      	<payment_action>authorize_capture</payment_action>
+      	<title>Smartcoin</title>
+      	<cctypes>AE,VI,MC,DI,JCB</cctypes>
+      	<useccv>1</useccv>
+        <min_order_total>0.50</min_order_total>
+      </smartcoin_smartcheckout>
+    </payment>
+  </default>
+</config>
