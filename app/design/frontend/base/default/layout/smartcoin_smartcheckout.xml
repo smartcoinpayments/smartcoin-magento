@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<layout>
+  <smartcheckout_checkout_handle>
+    <reference name="head">
+      <action method="addJs">
+        <script>smartcoin/smartcoin.js</script>
+      </action>
+    </reference>
+  </smartcheckout_checkout_handle>
+  <smartcheckout_checkout_success_handle>
+        <reference name="checkout.success">
+            <block type="smartcoin_smartcheckout/checkout_success_payment" name="smartcoin_smartcheckout_checkout_success_payment">
+                <action method="addPaymentRender">
+                  <type>smartcoin_smartcheckout_bs</type>
+                  <block>smartcoin_smartcheckout/checkout_success_payment_bs</block>
+                  <template>smartcoin/checkout/success/payment/bs.phtml</template>
+                </action>
+            </block>
+        </reference>
+    </smartcheckout_checkout_success_handle>
+
+    <checkout_onepage_index>
+    	<update handle="smartcheckout_checkout_handle"/>
+    </checkout_onepage_index>
+
+    <checkout_onepage_success>
+        <update handle="smartcheckout_checkout_success_handle"/>
+    </checkout_onepage_success>
+
+    <onepagecheckout_index_success>
+        <update handle="smartcheckout_checkout_success_handle"/>
+    </onepagecheckout_index_success>
+</layout>

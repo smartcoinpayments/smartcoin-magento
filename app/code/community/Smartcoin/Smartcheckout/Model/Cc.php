@@ -39,9 +39,11 @@ class Smartcoin_Smartcheckout_Model_Cc extends Mage_Payment_Model_Method_Abstrac
      }
      Mage::log('Assign Customer: ' . $data->getSmartcoinCustomer());
      Mage::log('Assign Installment: ' . $data->getSmartcoinInstallment());
+     Mage::log('Assign Payment Method: ' . $data->getSmartcoinPaymentMethod());
      $info = $this->getInfoInstance();
      $info->setSmartcoinCustomer($data->getSmartcoinCustomer());
      $info->setSmartcoinInstallment($data->getSmartcoinInstallment());
+     $info->setSmartcoinPaymentMethod($data->getSmartcoinPaymentMethod());
      return $this;
   }
 

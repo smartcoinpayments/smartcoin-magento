@@ -24,4 +24,9 @@ class Smartcoin_Smartcheckout_Helper_Data extends Mage_Core_Helper_Abstract {
     $apiSecret = Mage::getStoreConfig('payment/smartcoin_smartcheckout/api_secret_' . $this->getMode());
     return $apiSecret;
   }
+
+  public function getBSInstructions() {
+    $apiSecret = Mage::getStoreConfig('payment/smartcoin_smartcheckout_bs/instructions');
+    return $apiSecret; 
+  }
 }

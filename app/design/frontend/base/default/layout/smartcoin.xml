@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<layout>
-	<reference name="head">
-    <action method="addJs">
-      <script>smartcoin/smartcoin.js</script>
-    </action>
-  </reference>
-</layout>
