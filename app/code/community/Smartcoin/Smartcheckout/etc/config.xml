@@ -98,27 +98,30 @@
   <default>
     <payment>
       <smartcoin_smartcheckout>
-      	<model>smartcoin_smartcheckout/cc</model>
         <mode>test</mode>
-      	<api_key_test backend_model="adminhtml/system_config_backend_encrypted"/>
-        <api_secret_test backend_model="adminhtml/system_config_backend_encrypted"/>
-        <api_key_live backend_model="adminhtml/system_config_backend_encrypted"/>
-        <api_secret_live backend_model="adminhtml/system_config_backend_encrypted"/>
+      </smartcoin_smartcheckout>
+      <smartcoin_smartcheckout_cc>
+      	<model>smartcoin_smartcheckout/cc</model>
+        <active>0</active>
+        <allowspecific>0</allowspecific>
+        <sort_order>2</sort_order>
+        <group>smartcoin_smartcheckout</group>
       	<payment_action>authorize_capture</payment_action>
       	<title>Cartão de Crédito</title>
       	<cctypes>AE,VI,MC,DI,JCB</cctypes>
       	<useccv>1</useccv>
-        <min_order_total>0.50</min_order_total>
-      </smartcoin_smartcheckout>
+        <min_order_total>1.00</min_order_total>
+      </smartcoin_smartcheckout_cc>
       <smartcoin_smartcheckout_bs>
+        <active>0</active>
+        <allowspecific>0</allowspecific>
+        <sort_order>1</sort_order>
+        <group>smartcoin_smartcheckout</group>
         <model>smartcoin_smartcheckout/bs</model>
-        <api_key_test backend_model="adminhtml/system_config_backend_encrypted"/>
-        <api_secret_test backend_model="adminhtml/system_config_backend_encrypted"/>
-        <api_key_live backend_model="adminhtml/system_config_backend_encrypted"/>
-        <api_secret_live backend_model="adminhtml/system_config_backend_encrypted"/>
         <payment_action>charge</payment_action>
         <title>Boleto Bancário</title>
         <instructions>O boleto bancário será gerado ao finalizar o processo de pagamento.</instructions>
+        <min_order_total>5.00</min_order_total>
       </smartcoin_smartcheckout_bs>
     </payment>
   </default>

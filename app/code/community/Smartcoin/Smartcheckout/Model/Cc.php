@@ -12,7 +12,7 @@
 require_once Mage::getBaseDir('lib').DS.'Smartcoin'.DS.'Smartcoin.php';
 
 class Smartcoin_Smartcheckout_Model_Cc extends Mage_Payment_Model_Method_Abstract {
-	protected $_code	=	'smartcoin_smartcheckout';
+	protected $_code	=	'smartcoin_smartcheckout_cc';
 
 	protected $_formBlockType = 'smartcoin_smartcheckout/form_cc';
 	
@@ -24,7 +24,7 @@ class Smartcoin_Smartcheckout_Model_Cc extends Mage_Payment_Model_Method_Abstrac
   protected $_canUseInternal              = false;
 
   protected $_supportedCurrencyCodes = array('USD');
-  protected $_minOrderTotal = 0.5;
+  protected $_minOrderTotal = 1.0;
     
   public function __construct() {
 		\Smartcoin\Smartcoin::api_key(Mage::helper('smartcoin_smartcheckout')->getApiKey());
@@ -91,13 +91,12 @@ class Smartcoin_Smartcheckout_Model_Cc extends Mage_Payment_Model_Method_Abstrac
     return $this;
   }    
     
-	public function isAvailable($quote = null) {
-  	if($quote && $quote->getBaseGrandTotal()<$this->_minOrderTotal) {
-  		return false;
-  	}
-  	
-    return $this->getConfigData('api_key', ($quote ? $quote->getStoreId() : null)) && parent::isAvailable($quote);
-  }
+	// public function isAvailable($quote = null) {
+ //  	if($quote && $quote->getBaseGrandTotal() < $this->_minOrderTotal) {
+ //  		return false;
+ //  	}	
+ //    return $this->getConfigData('api_key', ($quote ? $quote->getStoreId() : null)) && parent::isAvailable($quote);
+ //  }
     
   public function canUseForCurrency($currencyCode) {
     if (!in_array($currencyCode, $this->_supportedCurrencyCodes)) {

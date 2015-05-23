@@ -4,6 +4,9 @@
     <Smartcoin_Smartcheckout>
       <active>true</active>
       <codePool>community</codePool>
+      <depends>
+        <Mage_Payment />
+      </depends>
     </Smartcoin_Smartcheckout>
   </modules>
 </config>

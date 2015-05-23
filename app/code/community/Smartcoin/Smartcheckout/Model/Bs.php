@@ -22,7 +22,7 @@ class Smartcoin_Smartcheckout_Model_Bs extends Mage_Payment_Model_Method_Abstrac
   protected $_isInitializeNeeded          = true;
 
   protected $_supportedCurrencyCodes = array('USD');
-  protected $_minOrderTotal = 0.5;
+  protected $_minOrderTotal = 5.0;
     
   public function __construct() {
 		\Smartcoin\Smartcoin::api_key(Mage::helper('smartcoin_smartcheckout')->getApiKey());
@@ -63,5 +63,12 @@ class Smartcoin_Smartcheckout_Model_Bs extends Mage_Payment_Model_Method_Abstrac
 		Mage::log('Charge - Bank Slip bar_code: ' . $payment->getSmartcoinBankSlipBarCode());
     return $this;
   }
+
+  // public function isAvailable($quote = null) {
+  // 	if($quote && $quote->getBaseGrandTotal() < $this->_minOrderTotal) {
+  // 		return false;
+  // 	}	
+  //   return $this->getConfigData('api_key', ($quote ? $quote->getStoreId() : null)) && parent::isAvailable($quote);
+  // }
 
 }

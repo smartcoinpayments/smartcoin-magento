@@ -11,17 +11,17 @@
 class Smartcoin_Smartcheckout_Helper_Data extends Mage_Core_Helper_Abstract {
 
 	public function getMode() {
-    $mode = Mage::getStoreConfig('payment/smartcoin_smartcheckout/mode');
+    $mode = Mage::getStoreConfig('payment/smartcoin_smartcheckout_settings/mode');
     return $mode;
   }
 
 	public function getApiKey() {
-    $apiKey = Mage::getStoreConfig('payment/smartcoin_smartcheckout/api_key_' . $this->getMode());
+    $apiKey = Mage::getStoreConfig('payment/smartcoin_smartcheckout_settings/api_key_' . $this->getMode());
     return $apiKey;
   }
 
   public function getApiSecret() {
-    $apiSecret = Mage::getStoreConfig('payment/smartcoin_smartcheckout/api_secret_' . $this->getMode());
+    $apiSecret = Mage::getStoreConfig('payment/smartcoin_smartcheckout_settings/api_secret_' . $this->getMode());
     return $apiSecret;
   }
 
