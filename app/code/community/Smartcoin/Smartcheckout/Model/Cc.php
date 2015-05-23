@@ -23,7 +23,6 @@ class Smartcoin_Smartcheckout_Model_Cc extends Mage_Payment_Model_Method_Abstrac
 	protected $_canUseForMultishipping      = false;
   protected $_canUseInternal              = false;
 
-  protected $_supportedCurrencyCodes = array('USD');
   protected $_minOrderTotal = 1.0;
     
   public function __construct() {
@@ -89,20 +88,5 @@ class Smartcoin_Smartcheckout_Model_Cc extends Mage_Payment_Model_Method_Abstrac
 			->setShouldCloseParentTransaction(1);	
 	
     return $this;
-  }    
-    
-	// public function isAvailable($quote = null) {
- //  	if($quote && $quote->getBaseGrandTotal() < $this->_minOrderTotal) {
- //  		return false;
- //  	}	
- //    return $this->getConfigData('api_key', ($quote ? $quote->getStoreId() : null)) && parent::isAvailable($quote);
- //  }
-    
-  public function canUseForCurrency($currencyCode) {
-    if (!in_array($currencyCode, $this->_supportedCurrencyCodes)) {
-        return false;
-    }
-    return true;
-  }
-	
+  } 
 }

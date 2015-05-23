@@ -21,7 +21,6 @@ class Smartcoin_Smartcheckout_Model_Bs extends Mage_Payment_Model_Method_Abstrac
 	protected $_canUseForMultishipping      = false;
   protected $_isInitializeNeeded          = true;
 
-  protected $_supportedCurrencyCodes = array('USD');
   protected $_minOrderTotal = 5.0;
     
   public function __construct() {
