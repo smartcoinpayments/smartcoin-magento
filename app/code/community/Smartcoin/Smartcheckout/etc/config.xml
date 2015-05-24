@@ -108,7 +108,7 @@
         <group>smartcoin_smartcheckout</group>
       	<payment_action>authorize_capture</payment_action>
       	<title>Cartão de Crédito</title>
-      	<cctypes>AE,VI,MC,DI,JCB</cctypes>
+      	<cctypes>AE,VI,MC,DI</cctypes>
       	<useccv>1</useccv>
         <min_order_total>1.00</min_order_total>
       </smartcoin_smartcheckout_cc>
