@@ -41,7 +41,7 @@
             </api_key_test> 
             <api_secret_test translate="label">
               <label>Api Secret (Test)</label>
-              <frontend_type>obscure</frontend_type>
+              <frontend_type>text</frontend_type>
               <sort_order>85</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -57,7 +57,7 @@
             </api_key_live> 
             <api_secret_live translate="label">
               <label>Api Secret (Live)</label>
-              <frontend_type>obscure</frontend_type>
+              <frontend_type>text</frontend_type>
               <sort_order>95</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
