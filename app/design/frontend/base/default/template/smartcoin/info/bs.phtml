@@ -12,6 +12,8 @@
 <?php echo $this->htmlEscape($this->getMethod()->getTitle()) ?>
 
 <br />
+<span><?php echo $this->__('Bar Code:') ?></span>
+<br />
 <span><?php echo $this->getSmartcoinBankSlipBarCode(); ?></span>
 <br />
 <a href="<?php echo $this->getSmartcoinBankSlipLink(); ?>" target="_blank"><?php echo $this->__('Click here to print your Bank Slip') ?></a>

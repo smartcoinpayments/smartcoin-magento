@@ -15,10 +15,12 @@ class Smartcoin_Smartcheckout_Block_Info_Bs extends Mage_Payment_Block_Info {
   } 
 
   public function getSmartcoinBankSlipLink() {
+    Mage::log('Bank Slip Link: ' . $this->getInfo()->getSmartcoinBankSlipLink());
     return $this->getInfo()->getSmartcoinBankSlipLink();
   }
 
   public function getSmartcoinBankSlipBarCode() {
+    Mage::log('Bank Slip Bar Code: ' . $this->getInfo()->getSmartcoinBankSlipBarCode());
     return $this->getInfo()->getSmartcoinBankSlipBarCode();
   }
 }
