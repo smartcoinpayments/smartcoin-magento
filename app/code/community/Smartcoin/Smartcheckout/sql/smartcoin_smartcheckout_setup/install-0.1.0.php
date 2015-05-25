@@ -16,7 +16,6 @@ $installer->startSetup();
 // Order Payment
 $entity = 'order_payment';
 $attributes = array(
-	'smartcoin_id'        						=> array('type' => Varien_Db_Ddl_Table::TYPE_VARCHAR),
   'smartcoin_bank_slip_link'        => array('type' => Varien_Db_Ddl_Table::TYPE_VARCHAR),
   'smartcoin_bank_slip_bar_code'    => array('type' => Varien_Db_Ddl_Table::TYPE_VARCHAR),
 );

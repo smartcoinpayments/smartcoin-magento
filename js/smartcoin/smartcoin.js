@@ -1,1 +1,0 @@
-var foi_certo = '';

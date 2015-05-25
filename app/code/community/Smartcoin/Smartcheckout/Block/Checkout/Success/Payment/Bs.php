@@ -10,10 +10,12 @@
  */
 class Smartcoin_Smartcheckout_Block_Checkout_Success_Payment_Bs extends Smartcoin_Smartcheckout_Block_Checkout_Success_Payment_Default {
 	public function getSmartcoinBankSlipLink() {
-    return $this->getInfo()->getSmartcoinBankSlipLink();
+		Mage::log('Bank Slip Link 2: ' . $this->getPayment()->getSmartcoinBankSlipLink());
+    return $this->getPayment()->getSmartcoinBankSlipLink();
   }
 
   public function getSmartcoinBankSlipBarCode() {
-    return $this->getInfo()->getSmartcoinBankSlipBarCode();
+  	Mage::log('Bank Slip Bar Code 2: ' . $this->getPayment()->getSmartcoinBankSlipBarCode());
+    return $this->getPayment()->getSmartcoinBankSlipBarCode();
   }
 }
