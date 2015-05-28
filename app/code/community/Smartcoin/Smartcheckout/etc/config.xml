@@ -81,11 +81,6 @@
     <events> 
       <core_block_abstract_to_html_after>
         <observers>
-          <smartcoin_smartcheckout_addsmartcoinjs>
-            <type>singleton</type>
-            <class>smartcoin_smartcheckout/observer</class>
-            <method>addSmartcoinJavascriptBlock</method>
-          </smartcoin_smartcheckout_addsmartcoinjs>
           <smartcoin_smartcheckout_addcheckoutjs>
             <type>singleton</type>
             <class>smartcoin_smartcheckout/observer</class>

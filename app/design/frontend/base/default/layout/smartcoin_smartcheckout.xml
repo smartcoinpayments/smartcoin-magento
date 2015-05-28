@@ -17,7 +17,13 @@
           </action>
         </block>
       </reference>
-    </smartcheckout_checkout_success_handle>
+  </smartcheckout_checkout_success_handle>
+
+    <default>
+        <reference name="head">
+            <block type="core/template" template="smartcoin/checkout/js.phtml" name="smartjs" />
+        </reference>
+    </default>
 
     <checkout_onepage_index>
     	<update handle="smartcheckout_checkout_handle"/>
