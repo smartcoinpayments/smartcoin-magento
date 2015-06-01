@@ -12,13 +12,12 @@
 require_once Mage::getBaseDir('lib').DS.'Smartcoin'.DS.'Smartcoin.php';
 
 class Smartcoin_Smartcheckout_Model_Bs extends Mage_Payment_Model_Method_Abstract {
-	protected $_code	=	'smartcoin_smartcheckout_bs';
+  protected $_code	=	'smartcoin_smartcheckout_bs';
 
-	protected $_formBlockType = 'smartcoin_smartcheckout/form_bs';
-	protected $_infoBlockType = 'smartcoin_smartcheckout/info_bs';
-
-	protected $_isGateway                   = true;
-	protected $_canUseForMultishipping      = false;
+  protected $_formBlockType = 'smartcoin_smartcheckout/form_bs';
+  protected $_infoBlockType = 'smartcoin_smartcheckout/info_bs';
+  protected $_isGateway                   = true;
+  protected $_canUseForMultishipping      = false;
   protected $_isInitializeNeeded          = true;
 
   protected $_minOrderTotal = 5.0;
@@ -38,15 +37,20 @@ class Smartcoin_Smartcheckout_Model_Bs extends Mage_Payment_Model_Method_Abstrac
     $payment = $this->getInfoInstance();
     $order = $payment->getOrder();
     $amount = $order->getBaseTotalDue();
+    $customer = Mage::getSingleton('customer/session');
 
   	try {
+        if($customer->isLoggedIn()) {
+            $guestEmail = $order->getCustomerEmail();
+        } else {
+            $guestEmail = $order->getShippingAddress()->getEmail();
+        }
   		$charge = \Smartcoin\Charge::create(array(
 		    'amount' => $amount*100,
 		    'currency' => 'brl',
 		    'type' => 'bank_slip',
-		    'customer' => $payment->getSmartcoinCustomer(),
-		    'receipt_email' => $order->getCustomerEmail(),
-		    'description'	=>	sprintf('#%s, %s', $order->getIncrementId(), $order->getCustomerEmail())
+		    'receipt_email' => $guestEmail,
+		    'description'	=>	sprintf('#%s, %s', $order->getIncrementId(), $guestEmail)
 		  ));
 		  Mage::log('Charge: ' . $charge->to_json());
 		} catch (Exception $e) {
@@ -59,7 +63,7 @@ class Smartcoin_Smartcheckout_Model_Bs extends Mage_Payment_Model_Method_Abstrac
 						->setSmartcoinBankSlipLink($charge->bank_slip->link)
 						->setSmartcoinBankSlipBarCode($charge->bank_slip->bar_code);
     Mage::log('Charge - Bank Slip link: ' . $payment->getSmartcoinBankSlipLink());
-		Mage::log('Charge - Bank Slip bar_code: ' . $payment->getSmartcoinBankSlipBarCode());
+	Mage::log('Charge - Bank Slip bar_code: ' . $payment->getSmartcoinBankSlipBarCode());
     return $this;
   }
 
