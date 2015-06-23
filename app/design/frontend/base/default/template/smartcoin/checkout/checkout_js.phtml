@@ -11,6 +11,18 @@
 $customer=Mage::getSingleton('customer/session');
 $billingaddress = Mage::getModel('customer/address')->load($customer->getCustomer()->default_billing);
 $addressdata = $billingaddress->getData();
+$order = Mage::getModel("sales/order")->load($order_id);
+
+$customerEmail = '';
+$customerAddress = '';
+$customerCity = '';
+$customerState = '';
+$customerCep = '';
+$customerCountry = '';
+
+if($customer->isLoggedIn()) {
+    $customerEmail = $customer->getCustomer()->getEmail();
+}
 
 if($addressdata)
   Mage::log('Shipment Address: ' . json_encode($addressdata));
@@ -31,19 +43,29 @@ Review.prototype.save = function() {
   if (payment.currentMethod == 'smartcoin_smartcheckout_cc') {
     checkout.setLoadWaiting('review');
     params = {
-      email: '<?php echo $customer->getCustomer()->getEmail(); ?>',
+        <?php if($customer->isLoggedIn()) { ?>
+            email: '<?php echo $customer->getCustomer()->getEmail(); ?>',
+        <?php } else { ?>
+            email: $j('#billing\\:email').val(),
+        <?php } ?>
       card: { 
         number: $j('input[data-smartcoin="number"]').val().replace(/\s*/g, ""),
         name: $j('input[data-smartcoin="name"]').val(),
         exp_month: $j('select[data-smartcoin="exp_month"]').val(),
         exp_year: $j('select[data-smartcoin="exp_year"]').val(),
         cvc: $j('input[data-smartcoin="cvc"]').val(),
-        <?php if($addressdata) { ?>
-        address_line_1: '<?php echo str_replace("\n",' ', $addressdata["street"]); ?>',
-        address_city: '<?php echo $addressdata["city"]; ?>',
-        address_state: '<?php echo $addressdata["region"]; ?>',
-        address_cep: '<?php echo $addressdata["postcode"]; ?>',
-        address_country: '<?php echo $addressdata["country_id"]; ?>',
+        <?php if($customer->isLoggedIn()) { ?>
+          address_line_1: '<?php echo str_replace("\n",' ', $addressdata["street"]); ?>',
+          address_city: '<?php echo $addressdata["city"]; ?>',
+          address_state: '<?php echo $addressdata["region"]; ?>',
+          address_cep: '<?php echo $addressdata["postcode"]; ?>',
+          address_country: '<?php echo $addressdata["country_id"]; ?>',
+        <?php } else { ?>
+          address_line_1: $j('#billing\\:stree1').val(),
+          address_city: $j('#billing\\:city').val(),
+          address_state: $j('#billing\\:region_id').val(),
+          address_cep: $j('#billing\\:postcode').val(),
+          address_country: $j('#billing\\:country_id').val(),
         <?php } ?>
       }
     };
